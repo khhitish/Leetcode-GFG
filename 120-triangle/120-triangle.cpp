@@ -62,19 +62,58 @@ public:
         // return dp[0];
         
         // O(1) space by modifying the triangle
-        for(int i=n-1;i>=0;i--)
+        // for(int i=n-1;i>=0;i--)
+        // {
+        //     for(int j=i;j>=0;j--)
+        //     {
+        //         if(i==n-1) triangle[i][j]=triangle[i][j];
+        //         else
+        //         {
+        //             int dia = triangle[i][j] + triangle[i+1][j+1];
+        //             int down = triangle[i][j] + triangle[i+1][j];
+        //             triangle[i][j]=min(down,dia);
+        //         }
+        //     }
+        // }
+        // return triangle[0][0];
+        
+        
+        // space optimized tabulation
+        vector<int> dp(n,0);
+        for(int j=n-1;j>=0;j--)
+        {
+            dp[j]=triangle[n-1][j];
+        }
+        int prev=dp[n-1];
+        
+        for(int i=n-2;i>=0;i--)
         {
             for(int j=i;j>=0;j--)
             {
-                if(i==n-1) triangle[i][j]=triangle[i][j];
-                else
-                {
-                    int dia = triangle[i][j] + triangle[i+1][j+1];
-                    int down = triangle[i][j] + triangle[i+1][j];
-                    triangle[i][j]=min(down,dia);
-                }
+                int temp=dp[j];
+                int down = triangle[i][j] + dp[j];
+                int dia = triangle[i][j] + prev;
+                dp[j]=min(down,dia);
+                prev=temp;
             }
+            prev=dp[i];
         }
-        return triangle[0][0];
+        return dp[0];
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 };
