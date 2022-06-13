@@ -20,7 +20,24 @@ class Solution
         {
 
             int n = arr.size();
-            vector<int> dp(n, -1);
-            return helper(0, k, arr, dp);
+            // vector<int> dp(n, -1);
+            // return helper(0, k, arr, dp);
+            
+            
+            // tabulation
+            vector<int> dp(n+1,0);
+            dp[n]=0; // base case;
+            for(int i=n-1;i>=0;i--)
+            {
+                int ans = -1e9, maxe = arr[i];
+                for(int j=i;j<n && j<i+k;j++)
+                {
+                    maxe=max(arr[j],maxe);
+                    int currans = maxe *(j - i + 1) + dp[j+1];
+                    ans=max(ans,currans);
+                }
+                dp[i]=ans;
+            }
+            return dp[0];
         }
 };
