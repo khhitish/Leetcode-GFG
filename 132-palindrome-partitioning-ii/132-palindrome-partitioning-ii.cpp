@@ -33,7 +33,26 @@ class Solution
         int minCut(string s)
         {
             int n = s.size();
-            vector<int> dp(n, -1);
-            return helper(0, s, dp) - 1;
+
+           	// memoization
+           	// vector<int> dp(n, -1);
+           	// return helper(0, s, dp) - 1;
+
+           	// tabulation
+            vector<int> dp(n + 1, 0);
+            dp[n] = 0;	// base case
+            for (int i = n - 1; i >= 0; i--)
+            {
+                int ans = 1e9;
+                for (int j = i; j < n; j++)
+                {
+                    if (ispalindrome(s, i, j) == true)
+                    {
+                        ans = min(ans, 1 + dp[j + 1]);
+                    }
+                }
+                dp[i] = ans;
+            }
+            return dp[0] - 1;
         }
 };
