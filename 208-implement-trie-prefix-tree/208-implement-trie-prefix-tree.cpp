@@ -1,4 +1,4 @@
-// chack notes for implement trie 2
+// check notes for implement trie 2
 struct Node
 {
     Node *links[26];
