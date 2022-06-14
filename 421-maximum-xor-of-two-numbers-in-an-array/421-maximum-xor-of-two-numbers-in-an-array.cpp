@@ -1,3 +1,4 @@
+// https://youtu.be/EIhAwfHubE8
 struct Node
 {
     Node *links[2];
