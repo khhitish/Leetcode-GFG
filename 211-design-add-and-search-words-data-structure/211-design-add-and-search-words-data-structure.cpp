@@ -48,7 +48,7 @@ class Trie
             {
                 dummy->put(word[i], new Node());
             }
-            dummy=dummy->get(word[i]);
+            dummy = dummy->get(word[i]);
         }
         dummy->setEnd();
     }
@@ -80,16 +80,6 @@ class Trie
     {
         Node *dummy = root;
         return helper(dummy, word, 0);
-        // for(int i=0;i<word.size();i++)
-        // {
-        //     if(dummy->containsKey(word[i])==true)
-        //     {
-        //         dummy=dummy->get(word[i]);
-        //     }
-        //     else return false;
-        // }
-        // if(dummy->isEnd()) return true;
-        // return false;
     }
 };
 
