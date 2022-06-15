@@ -28,7 +28,7 @@ public:
         sort(nums.begin(),nums.end());
         return nums[nums.size()-k];
         */
-        //using partition like quick sort,putting all elements greater than arr[start] before it ans all elements less than arr[start] after it then checking if arr[start] is the kth largest, if it is smaller than required, we reduce our range from 0 to j-1, ele vice versa
+        //using partition like quick sort,putting all elements greater than arr[start] before it ans all elements less than arr[start] after it then checking if arr[start] is the kth largest, if it is smaller than required, we reduce our range from 0 to j-1, ele vice versa O(n) time
 //         random_shuffle(nums.begin(),nums.end());
 //         int start=0,end=nums.size()-1;
 //         while(start<end)
