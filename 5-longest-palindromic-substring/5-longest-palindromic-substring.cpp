@@ -1,3 +1,5 @@
+// https://www.geeksforgeeks.org/longest-palindromic-substring-set-2/
+// https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/?ref=lbp
 class Solution {
 private:
     // // memoization
@@ -41,47 +43,82 @@ public:
         // return s.substr(start,maxlen);
         
         
-        // tabulation way of precomputing palindromes and simultaneously getting our ans
-        // Time = O(n^2) Space = O(n^2)
-        vector<vector<bool>> dp(n, vector<bool> (n,false));
-        for(int i=0;i<n;i++) // base cases (i,i) & (i,i+1)
+        // // tabulation way of precomputing palindromes and simultaneously getting our ans
+        // // Time = O(n^2) Space = O(n^2)
+        // vector<vector<bool>> dp(n, vector<bool> (n,false));
+        // for(int i=0;i<n;i++) // base cases (i,i) & (i,i+1)
+        // {
+        //     dp[i][i]=true; // length 1 substrings
+        //     int j=i+1;
+        //     if(j<n) // length 2 substrings
+        //     {
+        //         if(s[i]==s[j])
+        //         {
+        //             dp[i][j]=true;
+        //             if(maxlen<j-i+1)
+        //             {
+        //                 maxlen=j-i+1;
+        //                 start=i;
+        //             }
+        //         }
+        //     }
+        // }
+        // for(int len=3;len<=n;len++) // length 3 onwards, we have to do it in the increasing                                               order of length so that we can use the previous results                                             in calculating curr results
+        // {
+        //     for(int i=0;i<n-len+1;i++)//so that j doesnt go out of bounds
+        //     {
+        //         int j=i+len-1;
+        //         if(s[i]==s[j] && dp[i+1][j-1]==true)
+        //         {
+        //             dp[i][j]=true;
+        //             if(maxlen<j-i+1)
+        //             {
+        //                 maxlen=j-i+1;
+        //                 start=i;
+        //             }
+        //         }
+        //         else
+        //         {
+        //             dp[i][j]=false;
+        //         }   
+        //     }
+        // }
+        // return s.substr(start,maxlen);
+        
+        // Best Method:
+        // Time: O(n^2)  Space: O(1)
+        for(int i=0;i<n;i++)
         {
-            dp[i][i]=true; // length 1 substrings
-            int j=i+1;
-            if(j<n) // length 2 substrings
+            int low=i-1, high=i+1;
+            while(low>=0 && s[low]==s[i]) low--;
+            while(high<n && s[high]==s[i]) high++;
+            while(low>=0 && high<n && s[low]==s[high])
             {
-                if(s[i]==s[j])
-                {
-                    dp[i][j]=true;
-                    if(maxlen<j-i+1)
-                    {
-                        maxlen=j-i+1;
-                        start=i;
-                    }
-                }
+                low--; high++;
             }
-        }
-        for(int len=3;len<=n;len++) // length 3 onwards, we have to do it in the increasing order of length so that we can use the previous results in calculating curr results
-        {
-            for(int i=0;i<n-len+1;i++)//so that j doesnt go out of bounds
+            int currlen=high-low-1;
+            if(maxlen<currlen)
             {
-                int j=i+len-1;
-                if(s[i]==s[j] && dp[i+1][j-1]==true)
-                {
-                    dp[i][j]=true;
-                    if(maxlen<j-i+1)
-                    {
-                        maxlen=j-i+1;
-                        start=i;
-                    }
-                }
-                else
-                {
-                    dp[i][j]=false;
-                }
-                
+                maxlen=currlen;
+                start=low+1;
             }
         }
         return s.substr(start,maxlen);
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
