@@ -18,36 +18,36 @@ class compare
 };
 class Solution
 {
-    private:
-        ListNode* mergelist(ListNode *first, ListNode *second)
-        {
-            if (first == nullptr) return second;
-            else if (second == nullptr) return first;
-            ListNode *dummy = new ListNode();
-            ListNode *last = dummy;
-            while (first != nullptr && second != nullptr)
-            {
-                if (first->val < second->val)
-                {
-                    last->next = first;
-                    last = first;
-                    first = first->next;
-                    last->next = nullptr;
-                }
-                else
-                {
-                    last->next = second;
-                    last = second;
-                    second = second->next;
-                    last->next = nullptr;
-                }
-            }
-            if (second == nullptr)
-                last->next = first;
-            else
-                last->next = second;
-            return dummy->next;
-        }
+    // private:
+    //     ListNode* mergelist(ListNode *first, ListNode *second)
+    //     {
+    //         if (first == nullptr) return second;
+    //         else if (second == nullptr) return first;
+    //         ListNode *dummy = new ListNode();
+    //         ListNode *last = dummy;
+    //         while (first != nullptr && second != nullptr)
+    //         {
+    //             if (first->val < second->val)
+    //             {
+    //                 last->next = first;
+    //                 last = first;
+    //                 first = first->next;
+    //                 last->next = nullptr;
+    //             }
+    //             else
+    //             {
+    //                 last->next = second;
+    //                 last = second;
+    //                 second = second->next;
+    //                 last->next = nullptr;
+    //             }
+    //         }
+    //         if (second == nullptr)
+    //             last->next = first;
+    //         else
+    //             last->next = second;
+    //         return dummy->next;
+    //     }
     public:
         ListNode* mergeKLists(vector<ListNode*> &lists)
         {
