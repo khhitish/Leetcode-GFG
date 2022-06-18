@@ -52,7 +52,7 @@ public:
         // }
         // return lists[size-1];
         
-        // Using 
+        // Using minheap. T.C:O(n*k*logk) S.C: O(k + n*k) n=avg length of LL, creating extra LL
         ListNode* dummy=new ListNode();
         ListNode* tail=dummy;
         priority_queue<pair<int,ListNode*>, vector<pair<int,ListNode*>>, 
