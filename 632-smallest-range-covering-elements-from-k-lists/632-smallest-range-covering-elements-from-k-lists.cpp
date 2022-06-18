@@ -1,7 +1,7 @@
+// https://youtu.be/RrxpTWqj97A
+// Time: O(n*k*logk) worst case, space: O(k)
 class Solution
 {
-   	// https://youtu.be/RrxpTWqj97A
-   	// Time: O(n*k*logk) worst case, space: O(k)
     public:
         vector<int> smallestRange(vector<vector < int>> &nums)
         {
