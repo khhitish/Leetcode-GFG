@@ -21,7 +21,7 @@ class Solution {
     string isSumOfTwo(int n){
         for(int i=2;i<=n/2;i++)
         {
-            if(checkprime(i) && checkprime(n-i)) return "Yes";
+            if(i%2==1 || (i==2))if(checkprime(i) && checkprime(n-i)) return "Yes";
         }
         return "No";
     }
