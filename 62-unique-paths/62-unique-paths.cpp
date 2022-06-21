@@ -1,6 +1,7 @@
 class Solution {
 private:
     // maths
+    // https://youtu.be/BEUuAERDtzk
     int ncr(int a, int b)
     {
         if(a-b < b)b=a-b;
