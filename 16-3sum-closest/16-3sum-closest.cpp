@@ -5,22 +5,25 @@ class Solution
         {
             sort(nums.begin(), nums.end());
             int n = nums.size();
-            int mindiff = INT_MAX, ans;
-            for (int i = 0; i < n - 2; i++)
+            int ans =2*1e4;
+            int i=0;
+            while(i<n-2)
             {
                 int j = i + 1, k = n - 1;
                 while (j < k)
                 {
                     int sum = nums[i] + nums[j] + nums[k];
-                    if (abs(target - sum) < mindiff)
+                    //cout<<sum<<endl;
+                    if (abs(target - sum) < abs(target - ans))
                     {
-                        mindiff = abs(target - sum);
                         ans = sum;
                     }
                     if (sum > target) k--;
                     else if (sum < target) j++;
                     else return ans;
                 }
+                int t = nums[i];
+                while (i < n - 2 && nums[i] == t) i++; // skipping the duplicates
             }
             return ans;
         }
