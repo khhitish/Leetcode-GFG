@@ -5,7 +5,7 @@ class Solution
         {
             sort(nums.begin(), nums.end());
             int n = nums.size();
-            int ans =2*1e4;
+            int ans =20000;
             int i=0;
             while(i<n-2)
             {
