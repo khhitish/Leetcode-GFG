@@ -33,6 +33,7 @@ class Solution
                     sum=0;
                 }
                 sum+=arr[i];
+                if(p>m) break;
             }
             if(p>m)
             {
