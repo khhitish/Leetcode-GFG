@@ -15,8 +15,8 @@ class Solution
     {
         long long low = *max_element(arr,arr+n);
         long long high = accumulate(arr,arr+n,0LL);
-        //long long ans;
-        while(low<high)
+        long long ans;
+        while(low<=high)
         {
             long long mid= low + (high-low)/2;
             // checking if mid time is possible
@@ -38,10 +38,11 @@ class Solution
             }
             else
             {
-                high=mid;
+                high=mid-1;
+                ans=mid;
             }
         }
-        return low;
+        return ans;
         
         //  long long low= *max_element(a, a+n);
 
