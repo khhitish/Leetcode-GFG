@@ -7,6 +7,7 @@ class Solution
             return false;
         }
     public:
+       	// can use a queue to store the window, not needed though
         int maxVowels(string s, int k)
         {
             int ans = 0, count = 0, n = s.size();
