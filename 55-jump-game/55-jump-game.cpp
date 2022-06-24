@@ -1,4 +1,5 @@
 class Solution {
+    // https://youtu.be/C2SXPhEZ_38
 public:
     bool canJump(vector<int>& nums) {
         int reachable=0, n=nums.size();
