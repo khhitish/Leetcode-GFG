@@ -10,47 +10,36 @@ using namespace std;
 class Solution{
 public:
     int isValid(vector<vector<int>> board){
-        for(int row=0;row<9;row++)
+        for (int i = 0; i < 9; i++)
         {
-            vector<int> v(10,0);
-            for(auto& x: board[row])
+            vector<int> row(10, 0), col(10, 0), box(10, 0);
+            for (int j = 0; j < 9; j++)
             {
-                if(x!=0)
+                int val;
+
+               	// row
+                if (board[i][j] != 0)
                 {
-                    v[x]++;
-                    if(v[x]>1) return false;
-                }    
-            }
-        }
-        //validating columns
-        for(int col=0;col<9;col++)
-        {
-            vector<int> v(10,0);
-            for(int row=0;row<9;row++)
-            {
-                if(board[row][col]!=0)
-                {
-                    v[board[row][col]]++;
-                    if(v[board[row][col]]>1) return false;
+                    int val = board[i][j];
+                    row[val]++;
+                    if (row[val] > 1) return false;
                 }
-            }
-        }
-        //validating 3*3 squares
-        for(int x=0;x<3;x++)
-        {
-            for(int y=0;y<3;y++)
-            {
-                vector<int> v(10,0);
-                for(int i=y*3; i<y*3+3;i++)
+
+               	// col
+                if (board[j][i] !=0)
                 {
-                    for(int j=x*3;j<x*3 +3;j++)
-                    {
-                        if(board[i][j]!=0)
-                        {
-                            v[board[i][j]]++;
-                            if(v[board[i][j]]>1) return false;
-                        }
-                    }
+                    int val = board[j][i];
+                    col[val]++;
+                    if (col[val] > 1) return false;
+                }
+
+               	// box
+                int x = 3 *(i / 3) + j / 3, y = 3 *(i % 3) + j % 3;
+                if (board[x][y] !=0)
+                {
+                    val = board[x][y];
+                    box[val]++;
+                    if (box[val] > 1) return false;
                 }
             }
         }
