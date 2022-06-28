@@ -7,17 +7,34 @@ using namespace std;
 class Solution{
 public:
 	int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
-	    int maxi=0, row=-1;
-	    for(int i=0;i<n;i++)
-	    {
-	        int curr = m - (lower_bound(arr[i].begin(), arr[i].end(), 1) - arr[i].begin());
-	        if(curr>maxi)
-	        {
-	            row=i;
-	            maxi=curr;
-	        }
-	    }
-	    return row;
+	   
+	   // binary search nlogm
+	   // int maxi=0, row=-1;
+	   // for(int i=0;i<n;i++)
+	   // {
+	   //     int curr = m - (lower_bound(arr[i].begin(), arr[i].end(), 1) - arr[i].begin());
+	   //     if(curr>maxi)
+	   //     {
+	   //         row=i;
+	   //         maxi=curr;
+	   //     }
+	   // }
+	   // return row;
+	   int i=0,j=m-1;
+	   int ans=-1;
+	   while(i<n && j>=0)
+	   {
+	       if(arr[i][j]==1)
+	       {
+	           ans=i;
+	           j--;
+	       }
+	       else
+	       {
+	           i++;
+	       }
+	   }
+	   return ans;
 	}
 
 };
