@@ -2,27 +2,26 @@ class Solution {
 private:
     bool ispossibleans(int mid, vector<int>& bd, int m, int k)
     {
-        int n=bd.size(), i=0;
-        int count=0;
-        while(i<n)
+        int bouq=0, len=0;
+        for(auto&x : bd)
         {
-            int j=i;
-            while(j<n && bd[j]<=mid && j-i<k)
+            if(x<=mid)
             {
-                j++;
-            }
-            if(j-i==k)
-            {
-                count++;
-                i=j;
+                len++;
             }
             else
             {
-                i=j+1;
+                bouq+=(len/k);
+                len=0;
             }
-            if(count>=m) return true;
+            // if(len==k)
+            // {
+            //     bouq++;
+            //     len=0;
+            // }
         }
-        return false;
+        bouq+=(len/k);
+        return bouq>=m;
     }
 public:
     int minDays(vector<int>& bd, int m, int k) {
