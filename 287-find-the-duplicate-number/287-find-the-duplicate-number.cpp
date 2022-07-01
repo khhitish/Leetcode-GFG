@@ -1,19 +1,28 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int i=0, n=nums.size();
-        while(i<n)
+        // without modifying arry and using constant space 2 approaches
+        // binary search the answer time nlogn space 1
+        int low=1, high = nums.size()-1, ans=-1;
+        while(low<=high)
         {
-            int correct = nums[i]-1;
-            if(nums[correct]!=nums[i])
+            int mid = low + (high-low)/2;
+            int countless=0;
+            for(auto&x : nums)
             {
-                swap(nums[correct], nums[i]);
+                if(x<=mid) countless++;
+            }
+            if(countless > mid)
+            {
+                ans=mid;
+                high=mid-1;
             }
             else
             {
-                i++;
+                low=mid+1;
             }
+            //cout<<ans<<" ";
         }
-        return nums.back();
+        return ans;
     }
 };
