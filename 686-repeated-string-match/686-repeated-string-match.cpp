@@ -1,5 +1,6 @@
 class Solution
 {
+   	// https://youtu.be/BQ9E-2umSWc
     private:
         int rabin_karp(string &s, string &p)
         {
