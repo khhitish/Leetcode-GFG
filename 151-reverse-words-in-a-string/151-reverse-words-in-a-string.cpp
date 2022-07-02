@@ -8,6 +8,7 @@ class Solution
             while (i < n)
             {
                 while (i < n && s[i] == ' ') i++;
+                bool wordadded=false;
                 while (i < n && s[i] != ' ')
                 {
                     ans += s[i];
