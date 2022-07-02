@@ -5,10 +5,11 @@ class Solution
         {
             string ans;
             int i = 0, n = s.size();
+            
+            //removing extra spaces between words,before words, after words
             while (i < n)
             {
                 while (i < n && s[i] == ' ') i++;
-                bool wordadded=false;
                 while (i < n && s[i] != ' ')
                 {
                     ans += s[i];
@@ -18,6 +19,7 @@ class Solution
                	//cout<<ans<<endl;
             }
             while (ans.back() == ' ') ans.pop_back();
+            //reversing entire string and then reversing each word
             reverse(ans.begin(), ans.end());
             int start = 0;
             for (int i = 0; i < ans.size(); i++)
