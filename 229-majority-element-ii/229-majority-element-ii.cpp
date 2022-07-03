@@ -1,4 +1,6 @@
 class Solution {
+    // https://youtu.be/yDbkQd9t2ig
+    // Boyer Moore Voting algo
 public:
     vector<int> majorityElement(vector<int>& nums) {
         int e1=-1, e2=-1, c1=0,c2=0;
