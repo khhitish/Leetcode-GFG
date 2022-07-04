@@ -1,4 +1,5 @@
 class Solution {
+    // https://leetcode.com/problems/maximum-score-of-a-good-subarray/discuss/1108440/84.-Largest-Rectangle-in-Histogram-with-one-additional-check
 public:
     int maximumScore(vector<int>& h, int c) {
         stack<int> s;
