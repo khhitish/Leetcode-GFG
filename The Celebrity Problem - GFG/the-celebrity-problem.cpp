@@ -13,26 +13,41 @@ class Solution
     //Function to find if there is a celebrity in the party or not.
     int celebrity(vector<vector<int> >& M, int n) 
     {
-        stack<int> s;
-        for(int i=0;i<n;i++) s.push(i);
-        while(s.size()>1)
+        // stack<int> s;
+        // for(int i=0;i<n;i++) s.push(i);
+        // while(s.size()>1)
+        // {
+        //     int x=s.top(); s.pop();
+        //     int y=s.top(); s.pop();
+        //     if(M[x][y]==1) 
+        //     {
+        //         s.push(y);
+        //     }
+        //     else
+        //     {
+        //         s.push(x);
+        //     }
+        // }
+        // int celeb=s.top();
+        // for(int i=0;i<n;i++)
+        // {
+        //     if(i==celeb) continue;
+        //     if(M[i][celeb]==0 || M[celeb][i]==1) return -1;
+        // }
+        // return celeb;
+        
+        //constant space two pointers
+        int i=0, j=n-1;
+        while(i<j)
         {
-            int x=s.top(); s.pop();
-            int y=s.top(); s.pop();
-            if(M[x][y]==1) 
-            {
-                s.push(y);
-            }
-            else
-            {
-                s.push(x);
-            }
+            if(M[i][j]==0) j--;
+            else i++;
         }
-        int celeb=s.top();
-        for(int i=0;i<n;i++)
+        int celeb=i;
+        for(int k=0;k<n;k++)
         {
-            if(i==celeb) continue;
-            if(M[i][celeb]==0 || M[celeb][i]==1) return -1;
+            if(k==celeb) continue;
+            if(M[k][celeb]==0 || M[celeb][k]==1) return -1;
         }
         return celeb;
     }
