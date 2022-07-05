@@ -90,11 +90,22 @@ public:
     int getCount(Node *root, int l, int h)
     {
       if(root==nullptr) return 0;
-      int count=0;
-      if(root->data<=h && root->data>=l) count++;
-      count+=getCount(root->left,l,h);
-      count+=getCount(root->right,l,h);
-      return count;
+      if(root->data==l)
+      {
+          return 1 + getCount(root->right,l,h);
+      }
+      else if(root->data>l && root->data<=h)
+      {
+          return 1 + getCount(root->left,l,h) + getCount(root->right,l,h);
+      }
+      else if(root->data<l)
+      {
+          return getCount(root->right,l,h);
+      }
+      else if(root->data>h)
+      {
+          return getCount(root->left,l,h);
+      }
     }
 };
 
