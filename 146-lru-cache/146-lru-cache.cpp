@@ -1,3 +1,4 @@
+//https://youtu.be/xDEuM5qa0zg
 struct Node{
     int key;
     int val;
@@ -58,6 +59,7 @@ public:
     
     int get(int key) {
         if(mpp.count(key)==0) return -1;
+        
         Node* currnode = mpp[key];
         int val=currnode->val;
         
