@@ -17,26 +17,42 @@ public:
 */
 
 class Solution {
+private:
+    void dfs(Node* root)
+    {
+        if(root->left!=nullptr)// both children exist
+        {
+            root->left->next=root->right;
+            if(root->next!=nullptr)
+            {
+                root->right->next = root->next->left;
+            }
+            dfs(root->left);
+            dfs(root->right);
+        }
+        
+    }
 public:
     Node* connect(Node* root) {
         if(root==nullptr) return root;
-        queue<Node*> q;
-        q.push(root);
-        while(!q.empty())
-        {
-            int n=q.size();
-            Node* rnode=nullptr;
-            while(n--)
-            {
-                Node* curr=q.front();
-                q.pop();
-                curr->next=rnode;
-                rnode=curr;
-                
-                if(curr->right) q.push(curr->right);
-                if(curr->left) q.push(curr->left);
-            }
-        }
+        dfs(root); 
         return root;
+        // queue<Node*> q;
+        // q.push(root);
+        // while(!q.empty())
+        // {
+        //     int n=q.size();
+        //     Node* rnode=nullptr;
+        //     while(n--)
+        //     {
+        //         Node* curr=q.front();
+        //         q.pop();
+        //         curr->next=rnode;
+        //         rnode=curr;
+        //         if(curr->right) q.push(curr->right);
+        //         if(curr->left) q.push(curr->left);
+        //     }
+        // }
+        // return root;
     }
 };
