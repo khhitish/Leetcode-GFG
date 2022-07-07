@@ -15,28 +15,39 @@ public:
         : val(_val), left(_left), right(_right), next(_next) {}
 };
 */
-
+// https://leetcode.com/problems/populating-next-right-pointers-in-each-node/discuss/1654181/C++PythonJava-Simple-Solution-w-Images-and-Explanation-or-BFS-+-DFS-+-O(1)-Optimized-BFS
 class Solution {
 public:
     Node* connect(Node* root) {
         if(root==nullptr) return root;
-        queue<Node*> q;
-        q.push(root);
-        while(!q.empty())
+        //dfs(root); 
+        if(root->left!=nullptr)// both children exist
         {
-            int n=q.size();
-            Node* rnode=nullptr;
-            while(n--)
+            root->left->next=root->right;
+            if(root->next!=nullptr)
             {
-                Node* curr=q.front();
-                q.pop();
-                curr->next=rnode;
-                rnode=curr;
-                
-                if(curr->right) q.push(curr->right);
-                if(curr->left) q.push(curr->left);
+                root->right->next = root->next->left;
             }
+            connect(root->left);
+            connect(root->right);
         }
         return root;
+        // queue<Node*> q;
+        // q.push(root);
+        // while(!q.empty())
+        // {
+        //     int n=q.size();
+        //     Node* rnode=nullptr;
+        //     while(n--)
+        //     {
+        //         Node* curr=q.front();
+        //         q.pop();
+        //         curr->next=rnode;
+        //         rnode=curr;
+        //         if(curr->right) q.push(curr->right);
+        //         if(curr->left) q.push(curr->left);
+        //     }
+        // }
+        // return root;
     }
 };
