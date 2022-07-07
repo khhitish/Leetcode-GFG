@@ -39,27 +39,37 @@ struct Node
 // Should return  right view of tree
 class Solution
 {
+    private:
+    void dfs(Node* root, int level, vector<int>& ans)
+    {
+        if(root==nullptr) return;
+        if(level==ans.size()) ans.push_back(root->data);
+        dfs(root->right,level+1,ans);
+        dfs(root->left,level+1,ans);
+    }
     public:
     //Function to return list containing elements of right view of binary tree.
     vector<int> rightView(Node *root)
     {
        vector<int> ans;
        if(root==nullptr) return ans;
-       queue<Node*> q;
-       q.push(root);
-       while(!q.empty())
-       {
-           int n=q.size();
-           for(int i=0;i<n;i++)
-           {
-               Node* curr=q.front();
-               q.pop();
-               if(i==0) ans.push_back(curr->data);
-               if(curr->right) q.push(curr->right);
-               if(curr->left) q.push(curr->left);
-           }
-       }
+       dfs(root,0,ans);
        return ans;
+    //   queue<Node*> q;
+    //   q.push(root);
+    //   while(!q.empty())
+    //   {
+    //       int n=q.size();
+    //       for(int i=0;i<n;i++)
+    //       {
+    //           Node* curr=q.front();
+    //           q.pop();
+    //           if(i==0) ans.push_back(curr->data);
+    //           if(curr->right) q.push(curr->right);
+    //           if(curr->left) q.push(curr->left);
+    //       }
+    //   }
+    //   return ans;
     }
 };
 
