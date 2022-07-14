@@ -30,9 +30,38 @@ class Solution
 	        isMST[curr]=true;
 	        for(auto&x : adj[curr])
 	        {
-	            if(keys[x[0]]>x[1])
+	            if(isMST[x[0]]==false && keys[x[0]]>x[1])
 	            {
 	                keys[x[0]]=x[1];
+	                parent[x[0]]=curr;
+	            }
+	        }
+	    }
+	    return cost;
+	}
+	int prim_optimized(int n, vector<vector<int>> adj[])
+	{
+	    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+	    vector<int> keys(n,INT_MAX);
+	    vector<int> parent(n,-1);
+	    vector<bool> isMST(n,false);
+	    parent[0]=0;
+	    keys[0]=0;
+	    int cost=0;
+	    pq.push({keys[0],0});
+	    for(int i=0;i<n;i++)
+	    {
+	        int curr=pq.top().second;
+	        int weight = pq.top().first;
+	        pq.pop();
+	        isMST[curr]=true;
+	        cost+=weight;
+	        for(auto&x : adj[curr])
+	        {
+	            if(isMST[x[0]]==false && keys[x[0]]>x[1])
+	            {
+	                keys[x[0]]=x[1];
+	                pq.push({x[1],x[0]});
 	                parent[x[0]]=curr;
 	            }
 	        }
@@ -43,6 +72,7 @@ class Solution
     int spanningTree(int n, vector<vector<int>> adj[])
     {
         return prim_brute(n,adj);
+        //return prim_optimized(n,adj);
     }
 };
 // { Driver Code Starts.
