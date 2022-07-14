@@ -3,6 +3,50 @@
 using namespace std;
 
  // } Driver Code Ends
+class DSU 
+{
+    private:
+    vector<int> par;
+    vector<int> rank;
+    public:
+    DSU(int n)
+    {
+        par.resize(n,0);
+        for(int i=0;i<n;i++)
+        {
+            par[i]=i;
+        }
+        rank.resize(n,1);
+    }
+    int find_par(int x)
+    {
+        if(par[x]==x) return x;
+        int temp = find_par(par[x]);
+        par[x]=temp;
+        return temp;
+    }
+    void Union(int x, int y)
+    {
+        int px = find_par(x);
+        int py = find_par(y);
+        if(px!=py)
+        {
+            if(rank[px]>rank[py])
+            {
+                par[py]=px;
+            }
+            else if(rank[px]<rank[py])
+            {
+                par[px]=py;
+            }
+            else
+            {
+                par[px]=py;
+                rank[py]++;
+            }
+        }
+    }
+};
 class Solution
 {
 	private:
@@ -68,43 +112,38 @@ class Solution
 	    }
 	    return accumulate(keys.begin(), keys.end(),0);
 	}
+	int kruskal(int n, vector<vector<int>> adj[])
+	{
+	    vector<vector<int>> edges;
+	    for(int i=0;i<n;i++)
+	    {
+	        for(int j=0;j<adj[i].size();j++)
+	        {
+	            edges.push_back({adj[i][j][1],i,adj[i][j][0]});
+	        }
+	    }
+	    sort(edges.begin(), edges.end());
+	    DSU d(n);
+	    int cost=0;
+	    for(auto&x : edges)
+	    {
+	        int u=x[1], v=x[2], w=x[0];
+	        if(d.find_par(u)!=d.find_par(v))
+	        {
+	            cost+=w;
+	            //cout<<d.find_par(u)<<" "<<d.find_par(v)<<endl;
+	            d.Union(u,v);
+	        }
+	    }
+	    return cost;
+	}
 	public:
     int spanningTree(int n, vector<vector<int>> adj[])
     {
         //return prim_brute(n,adj);
         //return prim_optimized(n,adj);
+        return kruskal(n,adj);
         
-        //Prim's Algorithm
-        vector<int> key(n, INT_MAX);
-        vector<bool> mst(n,false);
-        //vector<int> parent(n,-1);
-        key[0]=0;
-        for(int count=0;count<n-1;count++)
-        {
-            int mini=INT_MAX,curr;
-            for(int i=0;i<n;i++)
-            {
-                if(mst[i]==false && key[i]<mini)
-                {
-                    mini=key[i];
-                    curr=i;
-                }
-            }
-            mst[curr]=1;
-            for(auto &x :adj[curr])
-            {
-                int node=x[0];
-                int weight=x[1];
-                if(mst[node]==false && weight<key[node])
-                {
-                    key[node]=weight;
-                    //parent[node]=curr;
-                }
-            }
-        }
-        // int ans=0;
-        // for(auto &x : key)ans+=x;
-        return accumulate(key.begin(),key.end(),0);
     }
 };
 // { Driver Code Starts.
