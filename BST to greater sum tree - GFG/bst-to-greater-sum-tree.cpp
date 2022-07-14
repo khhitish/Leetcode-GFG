@@ -97,30 +97,40 @@ Node* buildTree(string str)
 class Solution
 {
     private:
-    void inorder_trav(Node* root, vector<int>& inorder, bool get, int& i)
+    // void inorder_trav(Node* root, vector<int>& inorder, bool get, int& i)
+    // {
+    //     if(root==nullptr) return;
+    //     inorder_trav(root->left,inorder,get,i);
+    //     if(get==true) inorder.push_back(root->data);
+    //     else root->data = inorder[i++];
+    //     inorder_trav(root->right,inorder,get,i);
+    // }
+    void rev_inorder(Node* root, int &sum)
     {
         if(root==nullptr) return;
-        inorder_trav(root->left,inorder,get,i);
-        if(get==true) inorder.push_back(root->data);
-        else root->data = inorder[i++];
-        inorder_trav(root->right,inorder,get,i);
+        rev_inorder(root->right, sum);
+        sum+=root->data;
+        root->data=sum-root->data;
+        rev_inorder(root->left,sum);
     }
     public:
     void transformTree(struct Node *root)
     {
-        vector<int> inorder;
-        int j=-1;
-        inorder_trav(root,inorder,true,j);
+        // vector<int> inorder;
+        // int j=-1;
+        // inorder_trav(root,inorder,true,j);
+        // int sum=0;
+        // for(int i=inorder.size()-1;i>=0;i--)
+        // {
+        //     // cout<<sum<<endl;
+        //     sum+=inorder[i];
+        //     inorder[i]=sum - inorder[i];
+        //     //cout<<inorder[i]<<endl;
+        // }
+        // j=0;
+        // inorder_trav(root,inorder,false,j);
         int sum=0;
-        for(int i=inorder.size()-1;i>=0;i--)
-        {
-            // cout<<sum<<endl;
-            sum+=inorder[i];
-            inorder[i]=sum - inorder[i];
-            //cout<<inorder[i]<<endl;
-        }
-        j=0;
-        inorder_trav(root,inorder,false,j);
+        rev_inorder(root,sum);
     }
 };
 
