@@ -49,7 +49,7 @@ class Solution
 	    keys[0]=0;
 	    int cost=0;
 	    pq.push({keys[0],0});
-	    for(int i=0;i<n;i++)
+	    for(int i=0;i<n-1;i++)
 	    {
 	        int curr=pq.top().second;
 	        int weight = pq.top().first;
@@ -66,13 +66,45 @@ class Solution
 	            }
 	        }
 	    }
-	    return cost;
+	    return accumulate(keys.begin(), keys.end(),0);
 	}
 	public:
     int spanningTree(int n, vector<vector<int>> adj[])
     {
-        return prim_brute(n,adj);
+        //return prim_brute(n,adj);
         //return prim_optimized(n,adj);
+        
+        //Prim's Algorithm
+        vector<int> key(n, INT_MAX);
+        vector<bool> mst(n,false);
+        //vector<int> parent(n,-1);
+        key[0]=0;
+        for(int count=0;count<n-1;count++)
+        {
+            int mini=INT_MAX,curr;
+            for(int i=0;i<n;i++)
+            {
+                if(mst[i]==false && key[i]<mini)
+                {
+                    mini=key[i];
+                    curr=i;
+                }
+            }
+            mst[curr]=1;
+            for(auto &x :adj[curr])
+            {
+                int node=x[0];
+                int weight=x[1];
+                if(mst[node]==false && weight<key[node])
+                {
+                    key[node]=weight;
+                    //parent[node]=curr;
+                }
+            }
+        }
+        // int ans=0;
+        // for(auto &x : key)ans+=x;
+        return accumulate(key.begin(),key.end(),0);
     }
 };
 // { Driver Code Starts.
