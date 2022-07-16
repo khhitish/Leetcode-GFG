@@ -1,4 +1,5 @@
 class Solution {
+    // https://youtu.be/wLPdkLM_BWo
 public:
     int jump(vector<int>& nums) {
         int farthest=0, jumps=0,curr=0;
