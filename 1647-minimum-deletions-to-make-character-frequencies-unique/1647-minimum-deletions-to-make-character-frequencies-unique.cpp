@@ -6,34 +6,16 @@ public:
         {
             freq[x-'a']++;
         }
-        // map<int,int> mpp;
-        // for(auto&x : freq)
-        // {
-        //     if(x>0) mpp[x]++;
-        // }
-        // int ans = 0;
-        // for(auto it=mpp.rbegin(); it!=mpp.rend(); it++)
-        // {
-        //     if(it->first==0) break;
-        //     if(it->second>1)
-        //     {
-        //         ans+=it->second-1;
-        //         //cout<<ans<<" ";
-        //         mpp[it->first-1]+=it->second-1;
-        //     }
-        // }
-        // return ans;
-        int ans=0;
         sort(freq.begin(), freq.end(), greater<int>());
-        unordered_set<int> st;
-        for(int i=0;i<26 && freq[i]>0; i++)
+        int prev=freq[0], ans=0;
+        for(int i=1;i<26;i++)
         {
-            while(st.count(freq[i])>0)
+            if(freq[i]>=prev && freq[i]!=0)
             {
-                ans++;
-                freq[i]--;
+                ans+=prev==0? freq[i]-prev : freq[i]-prev+1;
+                freq[i]=prev==0?prev:prev-1;
             }
-            if(freq[i]!=0) st.insert(freq[i]);
+            prev=freq[i];
         }
         return ans;
     }
