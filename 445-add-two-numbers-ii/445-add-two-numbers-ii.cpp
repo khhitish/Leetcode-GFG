@@ -8,47 +8,48 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+// https://leetcode.com/problems/add-two-numbers-ii/discuss/687339/Java-O(N)-solution-with-follow-up-question-no-recursion-no-stacks
 class Solution {
 private:
-    ListNode* addTwoNos1(ListNode* l1, ListNode* l2)
-    {
-        ListNode* dummy= new ListNode();
-        ListNode* curr = dummy;
-        int carry=0;
-        while(l1!=nullptr || l2!=nullptr || carry>0)
-        {
-            int sum=0;
-            if(l1)
-            {
-                sum+=l1->val;
-                l1=l1->next;
-            }
-            if(l2)
-            {
-                sum+=l2->val;
-                l2=l2->next;
-            }
-            sum+=carry;
-            curr->next = new ListNode(sum%10);
-            curr=curr->next;
-            carry = sum/10;
-        }
-        return dummy->next;
-    }
+//     ListNode* addTwoNos1(ListNode* l1, ListNode* l2)
+//     {
+//         ListNode* dummy= new ListNode();
+//         ListNode* curr = dummy;
+//         int carry=0;
+//         while(l1!=nullptr || l2!=nullptr || carry>0)
+//         {
+//             int sum=0;
+//             if(l1)
+//             {
+//                 sum+=l1->val;
+//                 l1=l1->next;
+//             }
+//             if(l2)
+//             {
+//                 sum+=l2->val;
+//                 l2=l2->next;
+//             }
+//             sum+=carry;
+//             curr->next = new ListNode(sum%10);
+//             curr=curr->next;
+//             carry = sum/10;
+//         }
+//         return dummy->next;
+//     }
     
     
-    ListNode* reverse(ListNode* head)
-    {
-        ListNode* prev=nullptr, *curr=nullptr, *ahead=head;
-        while(ahead!=nullptr)
-        {
-            prev=curr;
-            curr=ahead;
-            ahead=ahead->next;
-            curr->next=prev;
-        }
-        return curr;
-    }
+//     ListNode* reverse(ListNode* head)
+//     {
+//         ListNode* prev=nullptr, *curr=nullptr, *ahead=head;
+//         while(ahead!=nullptr)
+//         {
+//             prev=curr;
+//             curr=ahead;
+//             ahead=ahead->next;
+//             curr->next=prev;
+//         }
+//         return curr;
+//     }
     
     int sizeofll(ListNode* head)
     {
