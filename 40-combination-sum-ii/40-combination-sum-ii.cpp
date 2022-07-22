@@ -1,5 +1,7 @@
 class Solution {
+    // here instead of deciding whether to take the current value or not take the current value into our subset, we are deciding which number to take for a particular position of the subset
 private:
+    // https://youtu.be/G1fRTGRxXU8
     void helper(int i, int target, vector<int> &c, vector<int>& temp, vector<vector<int>>& ans)
     {
         if(target==0)
