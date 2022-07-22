@@ -11,27 +11,27 @@
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
-        ListNode* dummyless=new ListNode();
-        ListNode* dummymore=new ListNode();
-        ListNode* less=dummyless, *more=dummymore;
-        while(head!=nullptr)
+        ListNode* dummyless=new ListNode(), *dummymore = new ListNode();
+        ListNode* currless=dummyless, *currmore=dummymore;
+        ListNode* curr=head;
+        while(curr!=nullptr)
         {
-            ListNode* temp=head->next;
-            if(head->val < x)
+            ListNode* temp = curr->next;
+            if(curr->val < x)
             {
-                less->next=head;
-                less=less->next;
-                head->next=nullptr;
+                currless->next = curr;
+                currless=currless->next;
+                currless->next=nullptr;
             }
             else
             {
-                more->next=head;
-                more=more->next;
-                head->next=nullptr;
+                currmore->next = curr;
+                currmore = currmore->next;
+                currmore->next=nullptr;
             }
-            head=temp;
+            curr=temp;
         }
-        less->next=dummymore->next;
+        currless->next = dummymore->next;
         return dummyless->next;
     }
 };
