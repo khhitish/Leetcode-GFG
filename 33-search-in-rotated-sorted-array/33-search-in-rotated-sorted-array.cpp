@@ -5,15 +5,16 @@ class Solution
         int findpivot(vector<int> &nums, int low, int high)
         {
             if (nums[low] < nums[high]) return -1;
-            while (low <= high)
+            while (low < high)
             {
+                //5cout<<low<<" "<<high<<endl;
                 int mid = low + (high - low) / 2;
                 if (mid < high && nums[mid] > nums[mid + 1]) return mid;	// mid is the pivot
-                else if (mid > low && nums[mid - 1] > nums[mid]) return mid - 1;	// mid-1 is the pivot
+                //else if (mid > low && nums[mid - 1] > nums[mid]) return mid - 1;	// mid-1 is the pivot
                 else if (nums[mid] >= nums[low]) low = mid + 1;	//low to mid sorted means no pivot bw low and mid
                 else high = mid - 1;	//low to mid not sorted means pivot is there means ignore mid to high part
             }
-            return -1;
+            return low;
         }
     public:
         int search(vector<int> &nums, int target)
@@ -23,6 +24,7 @@ class Solution
            	// 2 pass sol
            	// finding pivot
             int pivot = findpivot(nums, 0, n - 1);
+            //cout<<pivot<<endl;
             int low = 0, high = pivot;
             while (low <= high)
             {
