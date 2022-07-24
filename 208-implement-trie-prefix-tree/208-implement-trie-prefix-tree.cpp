@@ -1,94 +1,86 @@
-// check notes for implement trie 2
 struct Node
 {
-    Node *links[26];
+    vector<Node*> links = vector<Node*>(26);
     bool flag;
-
+    
     bool containsKey(char ch)
     {
-        if (links[ch - 'a'] != nullptr) return true;
-        return false;
+        if(links[ch-'a']==nullptr) return false;
+        return true;
     }
-
-    void put(char ch, Node *node)
+    
+    void put(char ch, Node* node)
     {
-        links[ch - 'a'] = node;
+        links[ch-'a']=node;
     }
-
+    
     Node* get(char ch)
     {
         return links[ch - 'a'];
     }
-
+    
     void setEnd()
     {
-        flag = true;
+        flag=true;
     }
-
+    
     bool isEnd()
     {
-        if (flag == true) return true;
-        return false;
+        return flag;
     }
 };
-class Trie
-{
-    private:
-        Node * root;
-    public:
-        Trie()
-        {
-            root = new Node();
-        }
 
-    void insert(string word)
-    {
-        Node *node = root;
-        for (int i = 0; i < word.size(); i++)
-        {
-            if (node->containsKey(word[i]) == false)
-            {
-                node->put(word[i], new Node());
-            }
-            node = node->get(word[i]);
-        }
-        node->setEnd();
+
+class Trie {
+private:
+    Node* root;
+public:
+    Trie() {
+        root = new Node();
     }
-
-    bool search(string word)
-    {
-        Node *node = root;
-        for (int i = 0; i < word.size(); i++)
+    
+    void insert(string word) {
+        Node* curr = root;
+        for(int i=0;i<word.size();i++)
         {
-            if (node->containsKey(word[i]) == false)
+            char c = word[i];
+            if(curr->containsKey(c)==false)
             {
-                return false;
+                curr->put(c,new Node());
             }
-            node = node->get(word[i]);
+            curr = curr->get(c);
         }
-        if (node->isEnd() == false) return false;
-        return true;
+        curr->setEnd();
     }
-
-    bool startsWith(string word)
-    {
-        Node *node = root;
-        for (int i = 0; i < word.size(); i++)
+    
+    bool search(string word) {
+        Node* curr = root;
+        for(int i=0;i<word.size();i++)
         {
-            if (node->containsKey(word[i]) == false)
-            {
-                return false;
-            }
-            node = node->get(word[i]);
+            char c = word[i];
+            if(curr->containsKey(c)==false) return false;
+            curr = curr->get(c);
+        }
+        if(curr->isEnd()) return true;
+        return false;
+    }
+    
+    bool startsWith(string prefix) {
+        Node* curr = root;
+        for(int i=0;i<prefix.size();i++)
+        {
+            char c = prefix[i];
+            if(curr->containsKey(c)==false) return false;
+            curr = curr->get(c);
         }
         return true;
     }
 };
 
 /**
- *Your Trie object will be instantiated and called as such:
- *Trie* obj = new Trie();
- *obj->insert(word);
- *bool param_2 = obj->search(word);
- *bool param_3 = obj->startsWith(prefix);
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
  */
