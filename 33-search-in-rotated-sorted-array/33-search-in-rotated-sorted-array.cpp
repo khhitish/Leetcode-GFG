@@ -4,7 +4,7 @@ class Solution
        	// https://www.ideserve.co.in/learn/find-pivot-in-a-sorted-rotated-array
         int findpivot(vector<int> &nums, int low, int high)
         {
-            if (nums[low] < nums[high]) return -1;
+            //if (nums[low] < nums[high]) return -1;
             while (low < high)
             {
                 //5cout<<low<<" "<<high<<endl;
