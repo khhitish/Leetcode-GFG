@@ -1,101 +1,118 @@
 struct Node
 {
-    Node *links[26];
+    vector<Node*> links = vector<Node*>(26);
     bool flag;
-
+    
     bool containsKey(char ch)
     {
-        return links[ch - 'a'] != nullptr;
+        if(links[ch-'a']==nullptr) return false;
+        return true;
     }
-    void put(char ch, Node *node)
+    
+    void put(char ch, Node* node)
     {
-        links[ch - 'a'] = node;
+        links[ch-'a']=node;
     }
+    
     Node* get(char ch)
     {
         return links[ch - 'a'];
     }
+    
     void setEnd()
     {
-        flag = true;
+        flag=true;
     }
+    
     bool isEnd()
     {
-        return flag == true;
+        return flag;
     }
 };
 
-class Trie
-{
-    private:
-        Node * root;
-    public:
-        Trie()
-        {
-            root = new Node();
-        }
-    void insert(string word)
-    {
-        Node *node = root;
-        for (int i = 0; i < word.size(); i++)
-        {
-            if (node->containsKey(word[i]) == false)
-            {
-                node->put(word[i], new Node());
-            }
-            node = node->get(word[i]);
-        }
-        node->setEnd();
+
+class Trie {
+private:
+    Node* root;
+public:
+    Trie() {
+        root = new Node();
     }
-    void helper(Node *node, string &sol, vector<string> &ans)
+    
+    void insert(string word) {
+        Node* curr = root;
+        for(int i=0;i<word.size();i++)
+        {
+            char c = word[i];
+            if(curr->containsKey(c)==false)
+            {
+                curr->put(c,new Node());
+            }
+            curr = curr->get(c);
+        }
+        curr->setEnd();
+    }
+    
+    bool search(string word) {
+        Node* curr = root;
+        for(int i=0;i<word.size();i++)
+        {
+            char c = word[i];
+            if(curr->containsKey(c)==false) return false;
+            curr = curr->get(c);
+        }
+        if(curr->isEnd()) return true;
+        return false;
+    }
+    void helper(string& sol, Node* curr, vector<string>& ans)
     {
-        if (node->isEnd())
+        if(curr->isEnd())
         {
             ans.push_back(sol);
         }
-        for (int i = 0; i < 26; i++)
+        for(char c = 'a'; c<='z'; c++)
         {
-            if (ans.size() == 3) return;
-            char curr = 'a' + i;
-            if (node->containsKey(curr))
+            if(ans.size()==3) return;
+            if(curr->containsKey(c)==true)
             {
-                sol.push_back(curr);
-                helper(node->get(curr), sol, ans);
+                sol.push_back(c);
+                helper(sol,curr->get(c),ans);
                 sol.pop_back();
             }
         }
     }
-    void printall(string &prefix, vector<string> &ans)
+    void getsuggestions(string& s, vector<string>& ans)
     {
-        Node *node = root;
-        for (int i = 0; i < prefix.size(); i++)
+        Node* curr = root;
+        for(int i=0;i<s.size();i++)
         {
-            if (!node->containsKey(prefix[i])) return;
-            node = node->get(prefix[i]);
-        }
-        string sol = prefix;
-        helper(node, sol, ans);
+            if(curr->containsKey(s[i])==false) return;
+            curr = curr->get(s[i]);
+        }  
+        string sol=s;
+        helper(sol,curr,ans);
     }
+    
 };
-class Solution
-{
-    public:
-        vector<vector < string>> suggestedProducts(vector<string> &products, string searchWord)
+
+class Solution {
+public:
+    vector<vector<string>> suggestedProducts(vector<string>& products, string sw) {
+        Trie* t;
+        t = new Trie();
+        for(auto&x : products)
         {
-            Trie *t = new Trie();
-            for (auto &x: products)
-            {
-                t->insert(x);
-            }
-            string s;
-            vector<vector < string>> ans;
-            for (auto &x: searchWord)
-            {
-                s += x;
-                vector<string> temp;
-                t->printall(s, temp);
-                ans.push_back(temp);
-            }
-            return ans;
+            t->insert(x);
         }
+        string s;
+        vector<vector<string>> ans;
+        for(int i = 0;i<sw.size();i++)
+        {
+            s+=sw[i];
+            vector<string> temp;
+            t->getsuggestions(s,temp);
+            ans.push_back(temp);
+        }
+        return ans;
+    }
 };
