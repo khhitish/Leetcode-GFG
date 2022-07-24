@@ -1,6 +1,6 @@
 struct Node
 {
-    Node *links[26];
+    vector<Node*> links = vector<Node*> (26);
     bool flag;
 
     bool containsKey(char ch)
@@ -8,6 +8,7 @@ struct Node
         if (links[ch - 'a'] == nullptr) return false;
         return true;
     }
+
     void put(char ch, Node *node)
     {
         links[ch - 'a'] = node;
@@ -18,14 +19,14 @@ struct Node
         return links[ch - 'a'];
     }
 
-    bool isEnd()
-    {
-        return flag;
-    }
-
     void setEnd()
     {
         flag = true;
+    }
+
+    bool isEnd()
+    {
+        return flag;
     }
 };
 
@@ -33,56 +34,59 @@ class Trie
 {
     private:
         Node * root;
-
     public:
         Trie()
         {
             root = new Node();
         }
-    void insert(string & word)
+
+    void insert(string word)
     {
-        Node *dummy = root;
+        Node *curr = root;
         for (int i = 0; i < word.size(); i++)
         {
-            if (dummy->containsKey(word[i]) == false)
+            char c = word[i];
+            if (curr->containsKey(c) == false)
             {
-                dummy->put(word[i], new Node());
+                curr->put(c, new Node());
             }
-            dummy = dummy->get(word[i]);
+            curr = curr->get(c);
         }
-        dummy->setEnd();
+        curr->setEnd();
     }
-    bool helper(Node *dummy, string &word, int i)
+    bool helper(int i, string &word, Node *curr)
     {
         if (i == word.size())
         {
-            if (dummy->isEnd() == true) return true;
-            else return false;
+            if (curr->isEnd()) return true;
+            return false;
         }
         if (word[i] == '.')
         {
-            for (char ch = 'a'; ch <= 'z'; ch++)
+            for (char ch = 'a'; ch <='z' ; ch++)
             {
-                if (dummy->containsKey(ch) == true)
+                if (curr->containsKey(ch) == true)
                 {
-                    if (helper(dummy->get(ch), word, i + 1) == true) return true;
+                    if (helper(i + 1, word, curr->get(ch)) == true) return true;
                 }
             }
-            return false;
         }
-        else if (dummy->containsKey(word[i]) == true)
+        else
         {
-            return helper(dummy->get(word[i]), word, i + 1);
+            if (curr->containsKey(word[i]) == true)
+            {
+                return helper(i + 1, word, curr->get(word[i]));
+            }
         }
-        else return false;
+        return false;
     }
     bool search(string word)
     {
-        Node *dummy = root;
-        return helper(dummy, word, 0);
+        Node* curr = root;
+       // return helper(curr,word,0);
+        return helper(0,word,curr);
     }
 };
-
 class WordDictionary
 {
     private:
