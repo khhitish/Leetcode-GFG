@@ -66,7 +66,21 @@ public:
         //     }
         //     root=root->right;
         // }
-        TreeNode* prev=nullptr;
-        helper(root,prev);
+        
+        // TreeNode* prev=nullptr;
+        // helper(root,prev);
+        // morris
+        while(root!=nullptr)
+        {
+            if(root->left!=nullptr)
+            {
+                TreeNode* ls = root->left;
+                while(ls->right!=nullptr) ls = ls->right;
+                ls->right = root->right;
+                root->right = root->left;
+                root->left = nullptr;
+            }
+            root=root->right;
+        }
     }
 };
