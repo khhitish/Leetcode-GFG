@@ -1,3 +1,4 @@
+// https://youtu.be/PwUZbyuQkiA
 class NumArray {
 private:
     vector<int> segtree;
