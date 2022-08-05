@@ -9,7 +9,7 @@ public:
             m/=2;
             n/=2;
         }
-        if(m%2 == 0) return 2;
+        if(m%2 == 0) return 2; // m = number of reflections plus 1, n = number of extensions plus 1
         else
         {
             if(n%2==0) return 0;
