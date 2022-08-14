@@ -5,3 +5,5 @@ SELECT id, CASE
                 END AS type
 FROM Tree
 ORDER BY id;
+
+# Reason for null check:  https://leetcode.com/problems/tree-node/discuss/1517271/NOT-IN-didn't-work-due-to-null/1500078
