@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // can also be done in one set, if we delete the word from our dictionary before pushing it into queue (instead of adding it into a new visited set)
     int minMutation(string start, string end, vector<string>& bank) {
         unordered_set<string> dict(bank.begin(), bank.end());
         unordered_set<string> visited;
