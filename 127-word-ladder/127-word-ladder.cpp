@@ -1,6 +1,7 @@
 class Solution {
 public:
     int ladderLength(string start, string end, vector<string>& wordList) {
+        // can also be done in one set, if we delete the word from our dictionary before pushing it into queue (instead of adding it into a new visited set)
         unordered_set<string> dict(wordList.begin(), wordList.end());
         if(dict.count(end)==0) return 0;
         if(start==end) return 1;
