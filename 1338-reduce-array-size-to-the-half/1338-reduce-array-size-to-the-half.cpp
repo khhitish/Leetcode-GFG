@@ -7,17 +7,16 @@ public:
         {
             m[x]++;
         }
-        priority_queue<pair<int,int>> pq;
+        vector<int> freq;
         for(auto&x : m)
         {
-            pq.push({x.second,x.first});
+            freq.push_back(x.second);
         }
-        int req = n/2;
-        int ans = 0;
-        while(req>0)
+        sort(freq.begin(), freq.end(), greater<int>());
+        int req = n/2, ans=0;
+        for(int i=0;i<freq.size() && req>0;i++)
         {
-            req-=pq.top().first;
-            pq.pop();
+            req-=freq[i];
             ans++;
         }
         return ans;
