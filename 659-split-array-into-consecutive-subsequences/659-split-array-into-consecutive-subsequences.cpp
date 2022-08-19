@@ -1,4 +1,5 @@
 class Solution {
+    // https://leetcode.com/problems/split-array-into-consecutive-subsequences/discuss/106514/C++Python-Esay-Understand-Solution
 public:
     bool isPossible(vector<int>& nums) {
         unordered_map<int,int> rem, end;
