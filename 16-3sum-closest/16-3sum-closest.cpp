@@ -1,30 +1,36 @@
-class Solution
-{
-    public:
-        int threeSumClosest(vector<int> &nums, int target)
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size(),absdiff = INT_MAX, ans;
+        int i=0;
+        while(i<n)
         {
-            sort(nums.begin(), nums.end());
-            int n = nums.size();
-            int ans =20000;
-            int i=0;
-            while(i<n-2)
+            int j = i+1, k = n-1;
+            while(j<k)
             {
-                int j = i + 1, k = n - 1;
-                while (j < k)
+                int curr = nums[i] + nums[j] + nums[k];
+                if(curr==target) return curr;
+                // cout<<nums[i]<<" "<<j<<" "<<k<<" "<<curr<<endl;
+                if(abs(curr-target) < absdiff)
                 {
-                    int sum = nums[i] + nums[j] + nums[k];
-                    //cout<<sum<<endl;
-                    if (abs(target - sum) < abs(target - ans))
-                    {
-                        ans = sum;
-                    }
-                    if (sum > target) k--;
-                    else if (sum < target) j++;
-                    else return ans;
+                    ans = curr;
+                    absdiff = abs(curr-target);
                 }
-                int t = nums[i];
-                while (i < n - 2 && nums[i] == t) i++; // skipping the duplicates
+                if(curr>target)
+                {
+                    int temp = nums[k];
+                    while(k>j && nums[k] == temp)k--;
+                }
+                else
+                {
+                    int temp = nums[j];
+                    while(j<k && nums[j]==temp)j++;
+                }
             }
-            return ans;
+            int temp = nums[i];
+            while(i<n && nums[i]==temp)i++;
         }
+        return ans;
+    }
 };
