@@ -102,41 +102,36 @@ struct Node
 class Solution
 {
     private:
-    int helper(Node* root, int& count)
+    bool countSingle(Node* root, int& count)
     {
-        int l,r;
-        if(root->left == nullptr)
+        if(root == nullptr) return true;
+        
+        bool leftChild = countSingle(root->left,count);
+        bool rightChild = countSingle(root->right, count);
+        
+        if(leftChild == false || rightChild == false) return false;
+        
+        bool l = false, r = false;
+        if(root->left == nullptr || root->left->data == root->data)
         {
-            l = -1e9;
+            l = true;
         }
-        else
+        if(root->right == nullptr || root->right->data == root->data)
         {
-            l = helper(root->left,count);
+            r = true;
         }
-        if(root->right == nullptr)
-        {
-            r = -1e9;
-        }
-        else
-        {
-            r = helper(root->right,count);
-        }
-        if(l!=-1e8 && r!=-1e8 && ((l==r && r==root->data) || (l==-1e9 && r==-1e9)|| (l==-1e9 && r==root->data) || ((r==-1e9) && l==root->data)))
+        if(l && r)
         {
             count++;
-            return root->data;
+            return true;
         }
-        else
-        {
-            return -1e8;
-        }
-        
+        else return false;
     }
     public:
     int singlevalued(Node *root)
     {
         int count = 0;
-        helper(root,count);
+        countSingle(root,count);
         return count;
     }
     
