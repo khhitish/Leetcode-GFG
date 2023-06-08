@@ -1,14 +1,13 @@
+
+// Read editorial to understand
 class Solution {
 private:
     void helper(int i, string& num, int target, string& expr, vector<string>& ans,
     long long prevVal, long long prevNum, char prevOp,long long currNum) {
         int n = num.size();
         if(i == n) {
-            // cout<<expr<<" "<<prevVal<<endl;
             if(prevVal == target) {
                 ans.push_back(expr);
-                // cout<<expr<<" "<<prevVal<<endl;
-                // ans.back().pop_back();
             }
             return;
         }
@@ -18,7 +17,6 @@ private:
         expr+=num[i];
         currNum = currNum*10 + (num[i] - '0');
         if(i!=n-1 && (num[i]!='0' || (num[i] == '0' && isDigit == true))) {
-            // cout<<expr<<" "<<num[i]<<endl;
             helper(i+1,num,target,expr,ans,prevVal,prevNum,prevOp,currNum);
         }
         if(prevOp == '*') {
@@ -36,7 +34,6 @@ private:
                 prevVal-=currNum;
                 prevNum = -currNum;
             }
-            // prevNum = currNum;
             currNum=0;
         }
         if(i == n-1) {
