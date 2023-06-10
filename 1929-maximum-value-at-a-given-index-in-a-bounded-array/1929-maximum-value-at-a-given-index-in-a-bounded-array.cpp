@@ -19,7 +19,7 @@ public:
             else {
                 subright = 1LL*(mid-1)*mid/2 + 1LL*(mid-1)*((n - index - 1)-(mid-1));
             }
-            cout<<mid<<" "<<sum<<" "<<subleft<<" "<<subright<<endl;
+            // cout<<mid<<" "<<sum<<" "<<subleft<<" "<<subright<<endl;
             if(sum - subright - subleft <=maxSum) {
                 ans = mid;
                 low = mid+1;
